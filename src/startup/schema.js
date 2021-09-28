@@ -6,12 +6,13 @@ const { GraphQLFileLoader } = require('@graphql-tools/graphql-file-loader')
 const { join } = require('path')
 
 const userResolvers = require('../features/user/resolvers')
+const helloWorldResolver = require('../features/helloWorld/resolvers')
 
 const oldTypeDefs = []
 const sources = loadTypedefsSync(join(__dirname, '../**/*.graphql'), {
   loaders: [new GraphQLFileLoader()]
 })
-const resolvers = merge(userResolvers)
+const resolvers = merge(userResolvers, helloWorldResolver)
 
 const typeDefs = [...sources.map(source => source.document), ...oldTypeDefs]
 
