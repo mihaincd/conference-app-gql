@@ -1,6 +1,6 @@
-
 extend type Query {
   conferenceList(pager: PagerInput!, filters: ConferenceFilterInput): ConferenceList
+  conference(id: ID!): Conference!
 }
 
 type ConferenceList {
@@ -8,10 +8,10 @@ type ConferenceList {
   pagination(pager: PagerInput!, filters: ConferenceFilterInput): Pagination
 }
 
-
 input ConferenceFilterInput {
   startDate: DateTime
   endDate: DateTime
+  organizerEmail: String
 }
 
 type Conference {
@@ -28,14 +28,15 @@ type Conference {
 
 type Location {
   id: ID!
-  name:String
-  address:String
-  latitude:String
-  longitude:String
+  name: String
+  address: String
+  latitude: String
+  longitude: String
   city: City!
   county: County!
   country: Country!
 }
+
 type Speaker {
   id: ID!
   name: String
