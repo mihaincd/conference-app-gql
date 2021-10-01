@@ -1,8 +1,3 @@
-extend type Query {
-  conferenceList(pager: PagerInput!, filters: ConferenceFilterInput): ConferenceList
-  conference(id: ID!): Conference!
-}
-
 type ConferenceList {
   values: [Conference!]!
   pagination(pager: PagerInput!, filters: ConferenceFilterInput): Pagination
@@ -44,3 +39,9 @@ type Speaker {
   nationality: String
   rating: Float
 }
+
+extend type Query {
+  conferenceList(pager: PagerInput!, filters: ConferenceFilterInput): ConferenceList
+  conference(id: ID!): Conference!
+}
+

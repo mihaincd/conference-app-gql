@@ -24,7 +24,10 @@ class ConferenceDb extends SQLDataSource {
   }
 
   async getConferenceListTotalCount(filters = {}) {
-    return await this.knex('Conference').count('Id', { as: 'TotalCount' }).modify(this.generateWhereClause, filters).first()
+    return await this.knex('Conference')
+    .count('Id', { as: 'TotalCount' })
+    .modify(this.generateWhereClause, filters)
+    .first()
   }
   
   async getConferenceByID(id) {
