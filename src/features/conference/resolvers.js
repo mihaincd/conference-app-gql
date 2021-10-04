@@ -1,3 +1,5 @@
+const status=require('../../utils/constants');
+const { randomCharacters } = require('../../utils/functions');
 
 const conferenceResolvers = {
 Query: {
@@ -53,6 +55,14 @@ Query: {
         const country = await dataLoaders.countryById.load(countryId);
         return country;
     }
+  },
+  Mutation:{
+      attend: async(_parent, {input},{dataSources}, _info)=>{
+        const updateInput={...input, statusId: status.Attended }
+        const statusID = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput)
+
+        return statusID? randomCharacters(10): null
+      }
   }
 }
 module.exports = conferenceResolvers;
