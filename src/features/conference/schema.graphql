@@ -45,11 +45,17 @@ input Attendee{
   conferenceId: ID!
 }
 
+type AttendConference{
+  code:String
+  suggestedConferences: [Conference!]
+}
+
 extend type Query {
   conferenceList(pager: PagerInput!, filters: ConferenceFilterInput): ConferenceList
   conference(id: ID!): Conference!
 }
 
 extend type Mutation{
-  attend(input: Attendee!): String
+  attend(input: Attendee!): AttendConference
+  withdraw(input: Attendee):Int!
 }
