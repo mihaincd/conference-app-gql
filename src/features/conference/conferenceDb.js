@@ -54,7 +54,7 @@ class ConferenceDb extends SQLDataSource {
     if (existing?.id) {
       result = await this.knex('ConferenceXAttendee').update(updateAttendee, 'StatusId').where('Id', existing?.id)
       //update
-    } else {
+    } else {  
       //insert
       result = await this.knex('ConferenceXAttendee').returning('StatusId').insert(updateAttendee)
     }

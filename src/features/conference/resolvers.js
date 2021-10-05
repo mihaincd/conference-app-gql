@@ -68,7 +68,6 @@ const conferenceResolvers = {
     withdraw: async (_parent, { input }, { dataSources }, _info) =>{
       const updateInput ={...input, statusId:status.Withdrawn}
       const statusID = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput)
-
       return statusID
     }
   }
