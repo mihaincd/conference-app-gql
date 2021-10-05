@@ -35,14 +35,59 @@ type Location {
 type Speaker {
   id: ID!
   name: String
-  isMainSpeaker: Boolean
   nationality: String
   rating: Float
+  isMainSpeaker: Boolean!
 }
 
 input Attendee{
   attendeeEmail: String!
   conferenceId: ID!
+}
+
+input ConferenceInput{
+  id: ID
+  name: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  organizerEmail: String!
+  type: TypeInput
+  category: CategoryInput!
+  location: LocationInput!
+  speakers: [SpeakersInput!]!
+  deletedSpeakers:[ID!]
+}
+
+input TypeInput{
+  id:ID!
+  name:String
+  code:String
+}
+
+input CategoryInput{
+  id:ID!
+  name:String
+  code:String
+}
+
+input LocationInput{
+  id:ID
+  name:String!
+  code:String
+  countryId: Int!
+  countyId: Int!
+  cityId: Int!
+  address: String
+  latitude: Float
+  longitude: Float
+}
+
+input SpeakersInput{
+  id:ID!
+  name: String!
+  nationality: String
+  rating: Float
+  isMainSpeaker: Boolean!
 }
 
 type AttendConference{
@@ -58,4 +103,5 @@ extend type Query {
 extend type Mutation{
   attend(input: Attendee!): AttendConference
   withdraw(input: Attendee):Int!
+  saveConference(input: ConferenceInput):Conference
 }
