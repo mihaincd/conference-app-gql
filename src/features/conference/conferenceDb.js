@@ -1,5 +1,5 @@
 const { SQLDataSource } = require('../../utils/sqlDataSource')
-const conferenceColumns = ['Id', 'Name', 'ConferenceTypeId', 'LocationId', 'CategoryId', 'StartDate', 'EndDate']
+const conferenceColumns = ['Id', 'Name', 'ConferenceTypeId', 'LocationId', 'CategoryId', 'OrganizerEmail','StartDate', 'EndDate']
 
 class ConferenceDb extends SQLDataSource {
   generateWhereClause(queryBuilder, filters = {}) {
@@ -21,6 +21,13 @@ class ConferenceDb extends SQLDataSource {
       .offset(page * pageSize)
       .limit(pageSize)
     return { values }
+  }
+
+  async getJoinedUsers(id) {
+    return await this.knex
+    .select('AttendeeEmail')
+    .from('ConferenceXAttendee')
+    .where('ConferenceId',id ).andWhere('StatusId',1)
   }
 
   async getConferenceListTotalCount(filters = {}) {

@@ -10,6 +10,11 @@ const conferenceResolvers = {
     conference: async (_parent, { id }, { dataSources }, _info) => {
       const data = await dataSources.conferenceDb.getConferenceByID(id)
       return data
+    },
+    joinedUsers: async (_parent, {id}, {dataSources}, _info) =>{
+      const users = await dataSources.conferenceDb.getJoinedUsers(id)
+      return users
+
     }
   },
   ConferenceList: {
@@ -70,9 +75,15 @@ const conferenceResolvers = {
       const statusID = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput)
       return statusID
     },
+    join: async(_parent, { input }, { dataSources }, _info)=>{
+      const updateInput = { ...input, statusId: status.Joined}
+      const statusID = await dataSources.conferenceDb.updateConferenceXAttendee(updateInput)
+      return statusID
+    }
+    ,
     saveConference: async (_parent, { input }, { dataSources }, _info) => {
       const location = await dataSources.conferenceDb.updateLocation(input.location)
-      const updateConference = await dataSources.conferenceDb.updateConference({...input, location})
+      const updateConference = await dataSources.conferenceDb.updateConference({ ...input, location })
       const speakers = await Promise.all(
         input.speakers.map(async speaker => {
           const updateSpeaker = await dataSources.conferenceDb.updateSpeaker(speaker)

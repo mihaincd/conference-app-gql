@@ -7,8 +7,8 @@ class ConferenceApi extends RESTDataSource {
     this.baseURL = process.env.API_URL
   }
 
-  async getConferenceSuggestions(input){
-    const {conferenceId, attendeeEmail} = input
+  async getConferenceSuggestions(input) {
+    const { conferenceId, attendeeEmail } = input
     //   return await this.get(`suggestions/list`,{conferenceId, attendeeEmail})
     return suggestedConferences
   }
